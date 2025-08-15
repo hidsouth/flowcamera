@@ -1,149 +1,150 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    body {background-color: #000000}
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 11.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85); background-color: #ffffff; min-height: 13.0px}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 11.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85); background-color: #fb0007; min-height: 13.0px}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 11.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85); background-color: #fb0007}
-    span.s1 {font-kerning: none}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Field Darkness Reactive Pills (50mm Crop)</title>
+
+    <!-- Allow fullscreen "app mode" on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Flow Field Camera">
+
+    <!-- Optional: custom home screen icon -->
+    <link rel="apple-touch-icon" href="icon.png">
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+        }
+        canvas {
+            display: block;
+        }
+        #captureButton, #clearButton {
+            position: absolute;
+            bottom: 40px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            width: 70px;
+            height: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            z-index: 10;
+        }
+        #clearButton {
+            left: auto;
+            right: 20px;
+            bottom: 50px;
+            width: 50px;
+            height: 50px;
+            background: red;
+            border-radius: 10px;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 <body>
-<p class="p1"><span class="s1"></span><br></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p3"><span class="s1">&lt;html&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">  </span>&lt;head&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Flow Field Darkness Reactive Pills (50mm Crop)&lt;/title&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Allow fullscreen "app mode" on iOS --&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-title" content="Flow Field Camera"&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Optional: custom home screen icon --&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;link rel="apple-touch-icon" href="icon.png"&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>body { margin: 0; overflow: hidden; background: black; }</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>canvas { display: block; }</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>#captureButton, #clearButton {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>position: absolute;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>bottom: 40px;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>border: none;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>border-radius: 50%;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>background: white;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>width: 70px;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>height: 70px;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>left: 50%;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>transform: translateX(-50%);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>cursor: pointer;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>z-index: 10;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>#clearButton {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>left: auto;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>right: 20px;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>bottom: 50px;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>width: 50px;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>height: 50px;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>background: red;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>border-radius: 10px;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"&gt;&lt;/script&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/head&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">  </span>&lt;body&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button id="captureButton"&gt;&lt;/button&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button id="clearButton"&gt;&lt;/button&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>let video;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>let capturedImage;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>let particles = [];</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>function setup() {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>createCanvas(windowWidth, windowHeight);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>video = createCapture({ video: { facingMode: { exact: "environment" } }, audio: false });</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>video.size(width, height);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>video.hide();</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>for (let i = 0; i &lt; 200; i++) {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>particles.push(new Particle());</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('captureButton').addEventListener('click', () =&gt; {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>// Capture from cropped video frame</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>let cropW = video.width * 0.6; // crop to ~60% width (narrower FOV)</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>let cropH = video.height * 0.6; // same for height to keep aspect</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>let startX = (video.width - cropW) / 2;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>let startY = (video.height - cropH) / 2;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>capturedImage = video.get(startX, startY, cropW, cropH);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('clearButton').addEventListener('click', () =&gt; {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>clear();</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>background(0);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>background(0);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>function draw() {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>if (capturedImage) {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>for (let p of particles) {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>p.update();</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>p.show();</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>p.reset();</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>} else if (video) {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>// Draw cropped live preview</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>let cropW = video.width * 0.6;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>let cropH = video.height * 0.6;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>let startX = (video.width - cropW) / 2;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>let startY = (video.height - cropH) / 2;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>image(video, 0, 0, width, height, startX, startY, cropW, cropH);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>class Particle {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>constructor() {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>this.pos = createVector(random(width), random(height));</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>update() {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>let angle = noise(this.pos.x * 0.005, this.pos.y * 0.005) * TWO_PI;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>this.vel = p5.Vector.fromAngle(angle);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>show() {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>if (capturedImage) {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let px = constrain(floor(map(this.pos.x, 0, width, 0, capturedImage.width)), 0, capturedImage.width - 1);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let py = constrain(floor(map(this.pos.y, 0, height, 0, capturedImage.height)), 0, capturedImage.height - 1);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let c = capturedImage.get(px, py);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let b = brightness(c);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let darkness = 100 - b;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let sw = map(darkness, 0, 100, 2, 14);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let len = sw * 1.5; // pill length</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>stroke(c);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>strokeWeight(sw);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let angle = noise(this.pos.x * 0.01, this.pos.y * 0.01) * TWO_PI;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let x2 = this.pos.x + cos(angle) * len;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>let y2 = this.pos.y + sin(angle) * len;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">            </span>line(this.pos.x, this.pos.y, x2, y2);</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>reset() {</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">          </span>this.pos = createVector(random(width), random(height));</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
-<p class="p3"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/body&gt;</span></p>
-<p class="p3"><span class="s1">&lt;/html&gt;</span></p>
+
+    <!-- Capture Button -->
+    <button id="captureButton"></button>
+
+    <!-- Clear Button -->
+    <button id="clearButton"></button>
+
+    <script>
+        let video;
+        let capturedImage;
+        let particles = [];
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+
+            // Set up video capture
+            video = createCapture({ video: { facingMode: { exact: "environment" } }, audio: false });
+            video.size(width, height);
+            video.hide();
+
+            // Create particles
+            for (let i = 0; i < 200; i++) {
+                particles.push(new Particle());
+            }
+
+            // Capture button functionality
+            document.getElementById('captureButton').addEventListener('click', () => {
+                let cropW = video.width * 0.6; // crop to ~60% width (narrower FOV)
+                let cropH = video.height * 0.6; // same for height to keep aspect
+                let startX = (video.width - cropW) / 2;
+                let startY = (video.height - cropH) / 2;
+                capturedImage = video.get(startX, startY, cropW, cropH);
+            });
+
+            // Clear button functionality
+            document.getElementById('clearButton').addEventListener('click', () => {
+                clear();
+                background(0);
+            });
+
+            background(0);
+        }
+
+        function draw() {
+            if (capturedImage) {
+                // Draw the captured frame with particles
+                for (let p of particles) {
+                    p.update();
+                    p.show();
+                    p.reset();
+                }
+            } else if (video) {
+                // Draw cropped live preview
+                let cropW = video.width * 0.6;
+                let cropH = video.height * 0.6;
+                let startX = (video.width - cropW) / 2;
+                let startY = (video.height - cropH) / 2;
+                image(video, 0, 0, width, height, startX, startY, cropW, cropH);
+            }
+        }
+
+        // Particle class for flow field effect
+        class Particle {
+            constructor() {
+                this.pos = createVector(random(width), random(height));
+            }
+
+            update() {
+                let angle = noise(this.pos.x * 0.005, this.pos.y * 0.005) * TWO_PI;
+                this.vel = p5.Vector.fromAngle(angle);
+            }
+
+            show() {
+                if (capturedImage) {
+                    let px = constrain(floor(map(this.pos.x, 0, width, 0, capturedImage.width)), 0, capturedImage.width - 1);
+                    let py = constrain(floor(map(this.pos.y, 0, height, 0, capturedImage.height)), 0, capturedImage.height - 1);
+                    let c = capturedImage.get(px, py);
+                    let b = brightness(c);
+                    let darkness = 100 - b;
+                    let sw = map(darkness, 0, 100, 2, 14);
+                    let len = sw * 1.5; // pill length
+
+                    stroke(c);
+                    strokeWeight(sw);
+                    let angle = noise(this.pos.x * 0.01, this.pos.y * 0.01) * TWO_PI;
+                    let x2 = this.pos.x + cos(angle) * len;
+                    let y2 = this.pos.y + sin(angle) * len;
+                    line(this.pos.x, this.pos.y, x2, y2);
+                }
+            }
+
+            reset() {
+                this.pos = createVector(random(width), random(height));
+            }
+        }
+    </script>
+
 </body>
 </html>

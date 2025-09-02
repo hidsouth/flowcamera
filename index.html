@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Flow Field Darkness Reactive Pills</title>
+    <title>Flow Field Brightness Pills</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Flow Field Camera">
@@ -56,7 +56,6 @@
         createCanvas(windowWidth, windowHeight);
 
         video = createCapture({ video: { facingMode: { exact: "environment" } }, audio: false });
-        video.size(width, height);
         video.hide();
 
         for (let i = 0; i < 200; i++) {
@@ -64,7 +63,7 @@
         }
 
         document.getElementById('captureButton').addEventListener('click', () => {
-          capturedImage = video.get();
+          capturedImage = getCroppedVideo();
         });
 
         document.getElementById('clearButton').addEventListener('click', () => {
@@ -73,7 +72,7 @@
         });
 
         document.getElementById('saveButton').addEventListener('click', () => {
-          saveCanvas('flow_field_artwork', 'png'); // saves to Photos if user taps “Save Image”
+          saveCanvas('flow_field_artwork', 'png');
         });
 
         background(0);
@@ -86,9 +85,30 @@
             p.show();
             p.reset();
           }
-        } else if (video) {
-          image(video, 0, 0, width, height);
+        } else if (video.loadedmetadata) {
+          drawCroppedVideo(video);
         }
+      }
+
+      function drawCroppedVideo(src) {
+        let vidAspect = src.width / src.height;
+        let canvasAspect = width / height;
+
+        if (vidAspect > canvasAspect) {
+          let newW = src.height * canvasAspect;
+          let startX = (src.width - newW) / 2;
+          image(src, 0, 0, width, height, startX, 0, newW, src.height);
+        } else {
+          let newH = src.width / canvasAspect;
+          let startY = (src.height - newH) / 2;
+          image(src, 0, 0, width, height, 0, startY, src.width, newH);
+        }
+      }
+
+      function getCroppedVideo() {
+        let gfx = createGraphics(video.width, video.height);
+        gfx.image(video, 0, 0);
+        return gfx.get();
       }
 
       class Particle {
@@ -101,13 +121,14 @@
         }
         show() {
           if (capturedImage) {
-            let px = constrain(floor(this.pos.x), 0, capturedImage.width - 1);
-            let py = constrain(floor(this.pos.y), 0, capturedImage.height - 1);
+            let px = floor(map(this.pos.x, 0, width, 0, capturedImage.width));
+            let py = floor(map(this.pos.y, 0, height, 0, capturedImage.height));
             let c = capturedImage.get(px, py);
             let b = brightness(c);
-            let darkness = 100 - b;
-            let sw = map(darkness, 0, 100, 2, 14);
-            let len = sw * 1.5; // pill-like lines
+
+            // Reverse: lighter = bigger, darker = smaller
+            let sw = map(b, 0, 100, 3, 10);
+            let len = sw * 1.2; // pill shape
 
             stroke(c);
             strokeWeight(sw);
